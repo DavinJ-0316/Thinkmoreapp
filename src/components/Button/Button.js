@@ -50,7 +50,7 @@ const Button = styled.button`
       case 'google': 
         return css`
           color: rgb(255, 255, 255);
-          background-color: rgb(209, 67, 67);
+          background-color: #d14343;
 
           &:hover {
             background-color: rgb(146, 46, 46);
@@ -64,7 +64,7 @@ const Button = styled.button`
           background-color: rgb(80, 72, 229);
 
           &:hover {
-            background-color: rgb(56, 50, 160);
+            background-color: #3732a0;
           }
         `;
     }

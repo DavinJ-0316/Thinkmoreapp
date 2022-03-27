@@ -7,11 +7,11 @@ const Wrapper = styled.div`
   border-color: rgb(229 232 239);
 
   ${({ focused }) => focused && css`
-    border-color: rgb(56, 50, 160);
+    border-color: #3732a0;
   `}
 
   ${({ error }) => error && css`
-    border-color: rgb(209, 67, 67);
+    border-color: #d14343;
   `}
 `;
 
@@ -30,7 +30,7 @@ const StyledInput = styled.input`
   padding: 12px 0;
 `;
 
-const Label = styled.label`
+const Text = styled.span`
   position: absolute;
   color: rgb(101, 116, 139);
   left: 0;
@@ -42,11 +42,11 @@ const Label = styled.label`
   transition: font-size 0.15s, transform 0.15s;
 
   ${({ focused }) => focused && css`
-    color: rgb(56, 50, 160);
+    color: #3732a0;
   `}
   
   ${({ error }) => error && css`
-    color: rgb(209, 67, 67);
+    color: #d14343;
   `}
 
   ${({ floating }) => floating && css`
@@ -57,7 +57,7 @@ const Label = styled.label`
 
 const ErrorMessage = styled.p`
   font-size: 14px;
-  color: rgb(209, 67, 67);
+  color: #d14343;
   margin-top: 8px;
 `;
 
@@ -78,15 +78,22 @@ const TextInput = ({
         error={error}
         onFocus={() => setFocused(true)} 
         onBlur={() => setFocused(false)}
+        data-testid="WRAPPER"
       >
-        <Label 
-          error={error}
-          focused={focused} 
-          floating={focused || value.length > 0}
-        >
-          {label}
-        </Label>
-        <StyledInput type={type} value={value} onChange={(event) => onChange(event.target.value)} />
+        <label>
+          <Text
+            error={error}
+            focused={focused} 
+            floating={focused || value.length > 0}
+          >
+            {label}
+          </Text>
+          <StyledInput 
+            type={type} 
+            value={value} 
+            onChange={(event) => onChange(event.target.value)} 
+          />
+        </label>
       </Wrapper>
       {error && (<ErrorMessage>{errorMessage}</ErrorMessage>)}
     </div>

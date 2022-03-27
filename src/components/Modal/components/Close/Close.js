@@ -22,7 +22,7 @@ const Close = ({
 }) => (
   <Wrapper>
     <Button variant="text" onClick={onClick}>
-      <Icon />
+      <Icon title='close' />
     </Button>
   </Wrapper>
 );
