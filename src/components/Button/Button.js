@@ -12,6 +12,11 @@ const Button = styled.button`
     border-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, 
     color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 
+  &:disabled {
+    filter: grayscale(60%);
+    cursor: no-drop;
+  }
+
   ${({ block }) => block && css`
     display: block;
     width: 100%;
@@ -31,7 +36,7 @@ const Button = styled.button`
           border: 1px solid rgba(80, 72, 229, 0.5);
           color: rgb(80, 72, 229);
 
-          &:hover {
+          &:not([disabled]):hover {
             background-color: rgba(80, 72, 229, 0.04);
             border: 1px solid rgb(80, 72, 229);
           }
@@ -42,7 +47,7 @@ const Button = styled.button`
           color: rgb(255, 255, 255);
           background-color: rgb(33, 150, 243);
 
-          &:hover {
+          &:not([disabled]):hover {
             background-color: rgb(11, 121, 208);
           }
         `;
@@ -52,7 +57,7 @@ const Button = styled.button`
           color: rgb(255, 255, 255);
           background-color: #d14343;
 
-          &:hover {
+          &:not([disabled]):hover {
             background-color: rgb(146, 46, 46);
           }
         `;
@@ -63,7 +68,7 @@ const Button = styled.button`
           color: rgb(255, 255, 255);
           background-color: rgb(80, 72, 229);
 
-          &:hover {
+          &:not([disabled]):hover {
             background-color: #3732a0;
           }
         `;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '../../../../../../components/Button';
 import Form from '../../../../../../components/Form';
 import FormItem from '../../../../../../components/FormItem';
@@ -6,22 +6,19 @@ import HorizontalRule from '../../../../../../components/HorizontalRule';
 import useForm from '../../../../../../hooks/useForm';
 import AuthenticationModal from '../../../../../AuthenticationModal';
 import formItems from './formItems';
-import signUp from '../../../../../../apis/signUp'; 
 
-const RegisterModal = ({
+const ForgetPasswordModal = ({
   open,
   onClose,
   onLogin,
-  setUser,
 }) => {
-  const { valid, data, setData, touched, setTouched } = useForm(formItems);
-  const [loading, setLoading] = useState(false);
+  const { data, setData, touched, setTouched } = useForm(formItems)
 
   return (
     <AuthenticationModal
       open={open}
       onClose={onClose}
-      title="Register"
+      title="Forget password"
     >
       <Form
         formItems={formItems}
@@ -29,27 +26,22 @@ const RegisterModal = ({
         setData={setData}
         touched={touched}
         setTouched={setTouched}
-        onSubmit={async () => {
-          setLoading(true);
-          
-          const user = await signUp(data.emailAddress.value, data.password.value);
-          setUser(user)
-
-          setLoading(false)
+        onSubmit={() => {
+          console.log(data.emailAddress.value)
         }}
       >
         <FormItem>
-          <Button disabled={!valid || loading} block>Register</Button>
+          <Button block>Reset password</Button>
         </FormItem>
       </Form>
       <HorizontalRule />
       <FormItem>
         <Button block variant="text" onClick={onLogin}>
-          Having an account?
+          Back to login
         </Button>
       </FormItem>
     </AuthenticationModal>
   );
 };
 
-export default RegisterModal;
+export default ForgetPasswordModal;
