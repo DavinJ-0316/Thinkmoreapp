@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-const useForm = (formItems) => {
+const useForm = (formItems, initialValue = {}) => {
   const initialData = formItems.reduce((acc, cur) => {
     const { key } = cur;
 
     return {
       ...acc,
-      [key]: { value: '', touched: false }
+      [key]: { value: initialValue[key] || '', touched: false }
     }
   }, {});
 

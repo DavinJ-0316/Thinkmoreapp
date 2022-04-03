@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components'
-import getUser from '../../../../apis/getUser';
+import React, { useState } from 'react';
+import styled from 'styled-components';
 import Button from '../../../../components/Button';
+import { useUser } from '../../../../contexts/UserContext';
 import ForgetPasswordModal from './components/ForgetPasswordModal';
 import LoginModal from './components/LoginModal';
 import RegisterModal from './components/RegisterModal';
+import UserMenu from './components/UserMenu';
 
 const StyledButton = styled(Button)`
   & ~ & {
@@ -14,47 +15,48 @@ const StyledButton = styled(Button)`
 
 const Authentication = () => {
   const [modal, setModal] = useState();
-  const [user, setUser] = useState();
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      const user = await getUser();
-      setUser(user);
-    }
-
-    const authToken = sessionStorage.getItem('TMA_AUTH_TOKEN')
-
-    if (!authToken) {
-      return;
-    }
-
-    fetchData();
-  }, [])
+  const { user, onLogin, onLogout } = useUser();
 
   return (
     <div>
-      <StyledButton variant={user ? 'text' : 'outline'} onClick={() => setModal('LOGIN')}>
-        {user ? user.email : 'Login'}
-      </StyledButton>
+      {user ? (
+        <UserMenu 
+          user={user} 
+          onLogout={onLogout} 
+        />
+      ) : (
+        <StyledButton variant="outline" onClick={() => setModal('LOGIN')}>
+          Login
+        </StyledButton>
+      )}
       {!user && <StyledButton onClick={() => setModal('REGISTER')}>Register</StyledButton>}
-      <LoginModal 
-        open={!user && modal === 'LOGIN'} 
-        onClose={() => setModal()} 
-        onRegister={() => setModal('REGISTER')}
-        onForgetPassword={() => setModal('FORGET_PASSWORD')}
-        setUser={setUser}
-      />
-      <RegisterModal
-        open={!user && modal === 'REGISTER'} 
-        onClose={() => setModal()} 
-        onLogin={() => setModal('LOGIN')}
-        setUser={setUser}
-      />
-      <ForgetPasswordModal
-        open={!user && modal === 'FORGET_PASSWORD'} 
-        onClose={() => setModal()} 
-        onLogin={() => setModal('LOGIN')}
-      />
+      {modal === 'LOGIN' && (
+        <LoginModal 
+          onClose={() => setModal()} 
+          onRegister={() => setModal('REGISTER')}
+          onForgetPassword={() => setModal('FORGET_PASSWORD')}
+          onUser={(user) => {
+            onLogin(user)
+            setModal();
+          }}
+        />
+      )}
+      {modal === 'REGISTER' && (
+        <RegisterModal
+          onClose={() => setModal()} 
+          onLogin={() => setModal('LOGIN')}
+          onUser={(user) => {
+            onLogin(user)
+            setModal();
+          }}
+        />
+      )}
+      {modal === 'FORGET_PASSWORD' && (
+        <ForgetPasswordModal
+          onClose={() => setModal()} 
+          onLogin={() => setModal('LOGIN')}
+        />
+      )}
     </div>
   );
 };

@@ -25,22 +25,14 @@ const Wrapper = styled.div`
 `;
 
 const Modal = ({
-  open,
   onClose,
   children,
-}) => {
-  if (!open) {
-    return null;
-  }
-
-  return (
-    <Mask>
-      <Wrapper>
-        <Close onClick={onClose} />
-        {children}
-      </Wrapper>
-    </Mask>
-  );
-}
-
+}) => (
+  <Mask>
+    <Wrapper>
+      <Close onClick={onClose} />
+      {children}
+    </Wrapper>
+  </Mask>
+);
 export default Modal;

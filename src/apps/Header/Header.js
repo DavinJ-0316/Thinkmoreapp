@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 import Logo from '../../components/Logo';
 import Authentication from './components/Authentication';
@@ -20,7 +21,9 @@ const Header = () => {
 
   return (
     <Wrapper>
-      <StyledLogo />
+      <Link to="/">
+        <StyledLogo />
+      </Link>
       <Authentication />
     </Wrapper>
   );

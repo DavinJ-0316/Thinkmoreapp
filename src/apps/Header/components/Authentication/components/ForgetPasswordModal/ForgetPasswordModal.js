@@ -8,7 +8,6 @@ import AuthenticationModal from '../../../../../AuthenticationModal';
 import formItems from './formItems';
 
 const ForgetPasswordModal = ({
-  open,
   onClose,
   onLogin,
 }) => {
@@ -16,7 +15,6 @@ const ForgetPasswordModal = ({
 
   return (
     <AuthenticationModal
-      open={open}
       onClose={onClose}
       title="Forget password"
     >

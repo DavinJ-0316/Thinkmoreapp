@@ -26,13 +26,12 @@ const Sub = styled.p`
 `;
 
 const AuthenticationModal = ({
-  open,
   onClose,
   title,
   children,
 }) => {
   return (
-    <Modal open={open} onClose={onClose}>
+    <Modal onClose={onClose}>
       <LoginWrapper>
         <Header>
           <p>
